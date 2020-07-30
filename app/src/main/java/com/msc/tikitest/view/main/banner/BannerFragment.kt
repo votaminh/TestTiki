@@ -13,7 +13,8 @@ import com.msc.tikitest.model.banner.BannerDetailsResponse
 import kotlinx.android.synthetic.main.fragment_banner.view.*
 
 class BannerFragment : Fragment(){
-    var bannerItem : BannerDetailsResponse? = null
+    private var bannerItem : BannerDetailsResponse? = null
+    var bannerClickListener : BannerClickListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,6 +25,9 @@ class BannerFragment : Fragment(){
 
         bannerItem?.let {
             Glide.with(context!!).load(it.imageURL).apply(RequestOptions().override(0, 200)).into(view.imvBanner)
+            view.imvBanner.setOnClickListener{
+                bannerClickListener?.onBannerClick(bannerItem!!.title)
+            }
         }
         return view
     }

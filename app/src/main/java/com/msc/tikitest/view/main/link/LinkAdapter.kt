@@ -16,6 +16,7 @@ import java.lang.Exception
 class LinkAdapter (private var links : List<DetailsLinkResponse>) :
     RecyclerView.Adapter<LinkAdapter.ViewHolder>() {
 
+    var linkClickListener : LinkClickListener? = null
     var context : Context? = null
 
     class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
@@ -38,6 +39,10 @@ class LinkAdapter (private var links : List<DetailsLinkResponse>) :
 
             Glide.with(context!!).load(t["image_url"].toString()).into(holder.itemView.imvLink)
             holder.itemView.titleLink.text = t["title"].toString()
+
+            holder.itemView.imvLink.setOnClickListener{
+                linkClickListener?.onLinkClick(t["title"].toString())
+            }
         }catch (e : Exception){
             holder.itemView.visibility = View.INVISIBLE
         }

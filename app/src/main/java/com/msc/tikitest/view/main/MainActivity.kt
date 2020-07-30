@@ -14,11 +14,13 @@ import com.msc.tikitest.R
 import com.msc.tikitest.model.banner.BannerDetailsResponse
 import com.msc.tikitest.model.hot_deal.DealDetailResponse
 import com.msc.tikitest.model.link.DetailsLinkResponse
+import com.msc.tikitest.view.main.banner.BannerClickListener
 import com.msc.tikitest.view.main.banner.BannerFragment
 import com.msc.tikitest.view.main.banner.BannerPagerAdapter
 import com.msc.tikitest.view.main.deal_hot.DealClickListener
 import com.msc.tikitest.view.main.deal_hot.DealHotAdapter
 import com.msc.tikitest.view.main.link.LinkAdapter
+import com.msc.tikitest.view.main.link.LinkClickListener
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.getViewModel
 
@@ -102,6 +104,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun buildReLink() {
         linkAdapter = LinkAdapter(links)
+        linkAdapter!!.linkClickListener = object : LinkClickListener {
+            override fun onLinkClick(name: String) {
+                Toast.makeText(applicationContext, "Click " +name, Toast.LENGTH_LONG).show()
+            }
+
+        }
         reLink.layoutManager = GridLayoutManager(applicationContext, 2, RecyclerView.HORIZONTAL, false)
         reLink.adapter = linkAdapter
     }
@@ -132,6 +140,12 @@ class MainActivity : AppCompatActivity() {
         var bannerFragments = ArrayList<Fragment>()
         for (element in banners){
             var bannerFragment = BannerFragment()
+            bannerFragment.bannerClickListener = object : BannerClickListener {
+                override fun onBannerClick(name: String) {
+                    Toast.makeText(applicationContext, name, Toast.LENGTH_LONG).show()
+                }
+
+            }
             bannerFragment.setBannerDetailsItem(element)
             bannerFragments.add(bannerFragment)
         }
