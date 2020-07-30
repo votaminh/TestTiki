@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.msc.tikitest.R
-import com.msc.tikitest.model.BannerDetailsResponse
+import com.msc.tikitest.model.banner.BannerDetailsResponse
 import kotlinx.android.synthetic.main.fragment_banner.view.*
 
 class BannerFragment : Fragment(){
@@ -23,8 +23,7 @@ class BannerFragment : Fragment(){
         val view = inflater.inflate(R.layout.fragment_banner, container, false)
 
         bannerItem?.let {
-            Glide.with(context!!).load(it.image_url).apply(RequestOptions().override(0, 200)).into(view.imvBanner)
-            Log.i("lalala", it.image_url)
+            Glide.with(context!!).load(it.imageURL).apply(RequestOptions().override(0, 200)).into(view.imvBanner)
         }
         return view
     }

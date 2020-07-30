@@ -1,18 +1,18 @@
-package com.msc.tikitest.repository.banner
+package com.msc.tikitest.repository.link
 
-import com.msc.tikitest.model.banner.BannerResponse
-import com.msc.tikitest.remote.banner.BannerService
+import com.msc.tikitest.model.link.LinkResponse
+import com.msc.tikitest.remote.link.LinkService
 import com.msc.tikitest.repository.UseCaseResult
 import retrofit2.HttpException
 
-class BannerRepositoryImp (private val bannerService: BannerService) : BannerRepository{
-    override suspend fun getAllBanner(): UseCaseResult<BannerResponse> {
+class LinkRepositoryImp (private val linkService: LinkService) : LinkRepository{
+    override suspend fun getQuickLink(): UseCaseResult<LinkResponse> {
         return try {
-            val result = bannerService.getAllBanner().await()
+            val result = linkService.getQuickLinkAsync().await()
             UseCaseResult.Success(result)
         } catch (ex: Throwable) {
             val response = (ex as? HttpException)?.response()
-            response?.let {
+            if(response != null){
                 var message = ""
                 message = when {
                     response?.code()!! > 500 -> {
@@ -26,10 +26,11 @@ class BannerRepositoryImp (private val bannerService: BannerService) : BannerRep
                     }
                 }
                 UseCaseResult.Error(message)
+            }else{
+                UseCaseResult.Error("Error")
             }
 
-            UseCaseResult.Error("Error")
+
         }
     }
-
 }
