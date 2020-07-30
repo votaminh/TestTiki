@@ -1,4 +1,4 @@
-package com.msc.tikitest.banner
+package com.msc.tikitest.view.main.banner
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

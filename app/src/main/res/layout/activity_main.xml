@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".view.main.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -121,9 +121,6 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
                     android:paddingTop="@dimen/padding_medium"
-                    android:paddingBottom="@dimen/padding_medium"
-                    android:paddingLeft="@dimen/padding_x_medium"
-                    android:paddingRight="@dimen/padding_x_medium"
                     />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

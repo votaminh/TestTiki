@@ -1,0 +1,35 @@
+package com.msc.tikitest.view.main.banner
+
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.msc.tikitest.R
+import com.msc.tikitest.model.BannerDetailsResponse
+import kotlinx.android.synthetic.main.fragment_banner.view.*
+
+class BannerFragment : Fragment(){
+    var bannerItem : BannerDetailsResponse? = null
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_banner, container, false)
+
+        bannerItem?.let {
+            Glide.with(context!!).load(it.image_url).apply(RequestOptions().override(0, 200)).into(view.imvBanner)
+            Log.i("lalala", it.image_url)
+        }
+        return view
+    }
+
+    fun setBannerDetailsItem(element: BannerDetailsResponse) {
+        bannerItem = element
+    }
+}
