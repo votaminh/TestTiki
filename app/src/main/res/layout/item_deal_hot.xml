@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="110dp"
+    android:layout_height="160dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginRight="@dimen/margin_small">
+
+    <ImageView
+        android:id="@+id/imvProduct"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/tvPrice"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        />
+
+    <TextView
+        android:id="@+id/tvDiscount"
+        android:layout_width="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_height="wrap_content"
+        android:text="-90%"
+        android:gravity="center"
+        android:background="@drawable/solid_red_5"
+        android:padding="2dp"
+        android:textColor="@color/white"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginRight="@dimen/margin_small"
+        android:textSize="@dimen/size_x_smal"
+        />
+
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/llProgress"
+        android:layout_centerHorizontal="true"
+        android:text="1.000.000 đ"
+        android:textColor="@color/black"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:textSize="@dimen/size_x_smal"
+        />
+
+    <RelativeLayout
+        android:id="@+id/llProgress"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:layout_alignParentBottom="true"
+        >
+        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginRight="@dimen/margin_small"
+            app:rcSecondaryProgress="3"
+            app:rcMax="10"
+            app:rcRadius="10dp"
+            app:rcReverse="false"
+            app:rcProgressColor="#FF0D31"
+            app:rcSecondaryProgressColor="#FF0D31"
+            app:rcBackgroundColor="#DAA1A1"
+            />
+
+        <TextView
+            android:id="@+id/tvState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đã Bán 100"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/size_smal"
+            android:textColor="@color/white"
+            />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</RelativeLayout>

@@ -3,7 +3,7 @@ package com.msc.tikitest.model.hot_deal
 import com.google.gson.annotations.SerializedName
 
 data class HotDealResponse (
-    val dealDetailResponses: List<DealDetailResponse>,
+    val data: List<DealDetailResponse>,
     val tabs: List<Tab>,
     val version: String
 )

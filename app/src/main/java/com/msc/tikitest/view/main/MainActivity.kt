@@ -8,12 +8,16 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.msc.tikitest.R
 import com.msc.tikitest.model.banner.BannerDetailsResponse
+import com.msc.tikitest.model.hot_deal.DealDetailResponse
 import com.msc.tikitest.model.link.DetailsLinkResponse
 import com.msc.tikitest.view.main.banner.BannerFragment
 import com.msc.tikitest.view.main.banner.BannerPagerAdapter
+import com.msc.tikitest.view.main.deal_hot.DealClickListener
+import com.msc.tikitest.view.main.deal_hot.DealHotAdapter
 import com.msc.tikitest.view.main.link.LinkAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.getViewModel
@@ -29,6 +33,9 @@ class MainActivity : AppCompatActivity() {
     var linkAdapter : LinkAdapter? = null
     var links = ArrayList<DetailsLinkResponse>()
 
+    var dealAdapter : DealHotAdapter? = null
+    var deals = ArrayList<DealDetailResponse>()
+
     var runnable : Runnable? = null
     var currentIndexBanner = 0
 
@@ -37,11 +44,25 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         buildReLink()
+        buildReDeal()
         initListenerViewModel()
 
 
         viewModel.getAllBanner()
         viewModel.getQuickLink()
+        viewModel.getAllHotDeal()
+    }
+
+    private fun buildReDeal() {
+        dealAdapter = DealHotAdapter(deals)
+        dealAdapter?.dealClickListener = object : DealClickListener {
+            override fun onDealClick(deal: DealDetailResponse) {
+                Toast.makeText(applicationContext, "Click " + deal.product.name, Toast.LENGTH_LONG).show()
+            }
+
+        }
+        reDealHot.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.HORIZONTAL, false)
+        reDealHot.adapter = dealAdapter
     }
 
     private fun initListenerViewModel() {
@@ -57,13 +78,22 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, it, Toast.LENGTH_LONG).show()
         })
 
-        viewModel.loadingLink.observe(this, Observer {
-            if(it) loadLinks.visibility = View.VISIBLE else loadLinks.visibility = View.INVISIBLE
-        })
+
+
         viewModel.linkData.observe(this, Observer {
             mergeListLinkToOne(it.data)
         })
         viewModel.errorLink.observe(this, Observer {
+            Toast.makeText(applicationContext, it, Toast.LENGTH_LONG).show()
+
+        })
+
+        viewModel.loadingHotDeal.observe(this, Observer {
+        })
+        viewModel.hotDealData.observe(this, Observer {
+            dealAdapter?.setData(it.data)
+        })
+        viewModel.errorHotDeal.observe(this, Observer {
             Toast.makeText(applicationContext, it, Toast.LENGTH_LONG).show()
 
         })

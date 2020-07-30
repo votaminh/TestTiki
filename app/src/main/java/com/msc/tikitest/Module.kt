@@ -3,9 +3,12 @@ package com.msc.tikitest
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.msc.tikitest.remote.banner.BannerService
+import com.msc.tikitest.remote.hot_deal.HotDealService
 import com.msc.tikitest.remote.link.LinkService
 import com.msc.tikitest.repository.banner.BannerRepository
 import com.msc.tikitest.repository.banner.BannerRepositoryImp
+import com.msc.tikitest.repository.deal.HotDealRepository
+import com.msc.tikitest.repository.deal.HotDealRepositoryImp
 import com.msc.tikitest.repository.link.LinkRepository
 import com.msc.tikitest.repository.link.LinkRepositoryImp
 import com.msc.tikitest.view.main.MainViewModel
@@ -26,11 +29,15 @@ val appModules = module {
     single {
         createWebService<LinkService>(okHttpClient = createHttpClient(), baseUrl = "https://api.tiki.vn/shopping/v2/")
     }
+    single {
+        createWebService<HotDealService>(okHttpClient = createHttpClient(), baseUrl = "https://api.tiki.vn/v2/")
+    }
 
     factory<BannerRepository> { BannerRepositoryImp(bannerService = get())}
     factory<LinkRepository> { LinkRepositoryImp(linkService = get())}
+    factory<HotDealRepository> { HotDealRepositoryImp(hotDealService = get())}
 
-    viewModel { MainViewModel(bannerRepository = get(), linkRepository = get())}
+    viewModel { MainViewModel(bannerRepository = get(), linkRepository = get(), hotDealRepository = get())}
 }
 
 
