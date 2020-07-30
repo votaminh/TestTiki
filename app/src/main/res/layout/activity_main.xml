@@ -122,6 +122,16 @@
                     app:layout_constraintTop_toTopOf="parent"
                     android:paddingTop="@dimen/padding_medium"
                     />
+
+                <ProgressBar
+                    android:id="@+id/loadBanner"
+                    android:layout_width="@dimen/size_progress"
+                    android:layout_height="@dimen/size_progress"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="50dp"
+                    />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

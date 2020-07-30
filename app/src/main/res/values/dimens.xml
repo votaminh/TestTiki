@@ -2,5 +2,6 @@
 <resources>
     <dimen name="padding_medium">10dp</dimen>
     <dimen name="padding_x_medium">15dp</dimen>
-    <dimen name="padding_large">20dp</dimen>
+    <dimen name="padding_large">25dp</dimen>
+    <dimen name="size_progress">25dp</dimen>
 </resources>

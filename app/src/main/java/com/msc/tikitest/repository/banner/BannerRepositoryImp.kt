@@ -13,7 +13,24 @@ class BannerRepositoryImp (private val bannerService: BannerService) : BannerRep
             val result = bannerService.getAllBanner().await()
             UseCaseResult.Success(result)
         } catch (ex: Throwable) {
-            UseCaseResult.Error(ex.message ?: "")
+            val response = (ex as? HttpException)?.response()
+            response?.let {
+                var message = ""
+                message = when {
+                    response?.code()!! > 500 -> {
+                        "Server errors"
+                    }
+                    response?.code()!! > 400 -> {
+                        "Connection error"
+                    }
+                    else -> {
+                        "Redirects"
+                    }
+                }
+                UseCaseResult.Error(message)
+            }
+
+            UseCaseResult.Error("Error")
         }
     }
 

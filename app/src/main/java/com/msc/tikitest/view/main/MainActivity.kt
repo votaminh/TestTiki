@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.msc.tikitest.R
@@ -34,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initListenerViewModel() {
         viewModel.loadingBanner.observe(this, Observer {
-            Log.i("lala", it.toString())
+            if(it) loadBanner.visibility = View.VISIBLE else loadBanner.visibility = View.GONE
         })
         viewModel.bannerData.observe(this, Observer {
             banners = it.data
@@ -42,8 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         })
         viewModel.errorBanner.observe(this, Observer {
-            Log.i("lala", it.toString())
-
+            Toast.makeText(applicationContext, it, Toast.LENGTH_LONG).show()
         })
     }
 
